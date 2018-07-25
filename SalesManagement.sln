@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Presentation", "1-Presentation", "{C9F3059E-B7B5-4E38-BCB1-A8774C7FB4E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Application", "2-Application", "{B744C38F-ED86-439D-B1A8-8E80E355E114}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Domain", "3-Domain", "{0A5CE70F-614C-4A87-9A9D-C2951FF8684A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infrastructure", "4-Infrastructure", "{0C4130F9-F694-4BDF-AD6C-C7BC9910E816}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesManagement.Infrastructure", "SalesManagement.Infrastructure\SalesManagement.Infrastructure.csproj", "{976AB1A6-712E-446C-B7DC-E3B5644BCFDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesManagement.Utilities", "SalesManagement.Utilities\SalesManagement.Utilities.csproj", "{A419D223-5E08-4107-90BD-2F8828423082}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesManagement.Data", "SalesManagement.Data\SalesManagement.Data.csproj", "{6930E911-CA15-445A-B1E2-79C961C1EE8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesManagement.Data.EF", "SalesManagement.Data.EF\SalesManagement.Data.EF.csproj", "{F6A41E65-E5F9-4C25-992F-BDF4AF8391EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesManagement.Application", "SalesManagement.Application\SalesManagement.Application.csproj", "{C30113FE-7A43-45ED-B679-3229008DFF15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesManagement.ConsoleApp", "SalesManagement.ConsoleApp\SalesManagement.ConsoleApp.csproj", "{DEA8AC20-1347-4050-BECA-4786AB88190D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{976AB1A6-712E-446C-B7DC-E3B5644BCFDB} = {0C4130F9-F694-4BDF-AD6C-C7BC9910E816}
+		{A419D223-5E08-4107-90BD-2F8828423082} = {0C4130F9-F694-4BDF-AD6C-C7BC9910E816}
+		{6930E911-CA15-445A-B1E2-79C961C1EE8F} = {0A5CE70F-614C-4A87-9A9D-C2951FF8684A}
+		{F6A41E65-E5F9-4C25-992F-BDF4AF8391EF} = {0A5CE70F-614C-4A87-9A9D-C2951FF8684A}
+		{C30113FE-7A43-45ED-B679-3229008DFF15} = {B744C38F-ED86-439D-B1A8-8E80E355E114}
+		{DEA8AC20-1347-4050-BECA-4786AB88190D} = {C9F3059E-B7B5-4E38-BCB1-A8774C7FB4E7}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{976AB1A6-712E-446C-B7DC-E3B5644BCFDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{976AB1A6-712E-446C-B7DC-E3B5644BCFDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{976AB1A6-712E-446C-B7DC-E3B5644BCFDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{976AB1A6-712E-446C-B7DC-E3B5644BCFDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A419D223-5E08-4107-90BD-2F8828423082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A419D223-5E08-4107-90BD-2F8828423082}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A419D223-5E08-4107-90BD-2F8828423082}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A419D223-5E08-4107-90BD-2F8828423082}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6930E911-CA15-445A-B1E2-79C961C1EE8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6930E911-CA15-445A-B1E2-79C961C1EE8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6930E911-CA15-445A-B1E2-79C961C1EE8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6930E911-CA15-445A-B1E2-79C961C1EE8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A41E65-E5F9-4C25-992F-BDF4AF8391EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A41E65-E5F9-4C25-992F-BDF4AF8391EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A41E65-E5F9-4C25-992F-BDF4AF8391EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A41E65-E5F9-4C25-992F-BDF4AF8391EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C30113FE-7A43-45ED-B679-3229008DFF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C30113FE-7A43-45ED-B679-3229008DFF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C30113FE-7A43-45ED-B679-3229008DFF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C30113FE-7A43-45ED-B679-3229008DFF15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEA8AC20-1347-4050-BECA-4786AB88190D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEA8AC20-1347-4050-BECA-4786AB88190D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEA8AC20-1347-4050-BECA-4786AB88190D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEA8AC20-1347-4050-BECA-4786AB88190D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
