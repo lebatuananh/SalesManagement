@@ -9,7 +9,7 @@ namespace SalesManagement.ConsoleApp.Domain.Data.EF.Configurations
     {
         public override void Configure(EntityTypeBuilder<ProductTag> entity)
         {
-            entity.Property(c => c.Id).HasMaxLength(50).IsRequired().HasColumnType("varchar(50)");
+            //entity.Property(c => c.TagId).HasMaxLength(50).IsRequired().HasColumnType("varchar(50)");
         }
     }
 }

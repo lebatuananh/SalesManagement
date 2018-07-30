@@ -78,7 +78,7 @@ namespace SalesManagement.ConsoleApp.Migrations
                     Name = table.Column<string>(maxLength: 255, nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
-                    PromotionPrice = table.Column<decimal>(nullable: false),
+                    PromotionPrice = table.Column<decimal>(nullable: true),
                     OriginalPrice = table.Column<decimal>(nullable: false),
                     Description = table.Column<string>(maxLength: 255, nullable: true),
                     Content = table.Column<string>(nullable: true),
@@ -133,15 +133,14 @@ namespace SalesManagement.ConsoleApp.Migrations
                     ProductId = table.Column<int>(nullable: false),
                     SizeId = table.Column<int>(nullable: false),
                     ColorId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    CorlorId = table.Column<int>(nullable: false)
+                    Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductQuantities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductQuantities_Colors_CorlorId",
-                        column: x => x.CorlorId,
+                        name: "FK_ProductQuantities_Colors_ColorId",
+                        column: x => x.ColorId,
                         principalTable: "Colors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -163,9 +162,10 @@ namespace SalesManagement.ConsoleApp.Migrations
                 name: "ProductTags",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductId = table.Column<int>(nullable: false),
-                    TagId = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                    TagId = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -181,7 +181,7 @@ namespace SalesManagement.ConsoleApp.Migrations
                         column: x => x.TagId,
                         principalTable: "Tags",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -212,9 +212,9 @@ namespace SalesManagement.ConsoleApp.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductQuantities_CorlorId",
+                name: "IX_ProductQuantities_ColorId",
                 table: "ProductQuantities",
-                column: "CorlorId");
+                column: "ColorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductQuantities_ProductId",

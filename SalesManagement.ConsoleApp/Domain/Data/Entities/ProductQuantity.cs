@@ -18,6 +18,6 @@ namespace SalesManagement.ConsoleApp.Domain.Data.Entities
         
         [ForeignKey("SizeId")] public virtual Size Size { get; set; }
         
-        [ForeignKey("CorlorId")] public virtual Color Color { get; set; }
+        [ForeignKey("ColorId")] public virtual Color Color { get; set; }
     }
 }

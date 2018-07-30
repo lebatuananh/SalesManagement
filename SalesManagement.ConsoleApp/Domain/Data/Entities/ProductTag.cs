@@ -11,6 +11,7 @@ namespace SalesManagement.ConsoleApp.Domain.Data.Entities
 
         [StringLength(50)]
         [Column(TypeName = "varchar(50)")]
+        [Required]
         public string TagId { get; set; }
 
         [ForeignKey("ProductId")] public virtual Product Product { get; set; }

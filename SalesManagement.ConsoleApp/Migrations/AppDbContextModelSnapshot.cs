@@ -159,8 +159,6 @@ namespace SalesManagement.ConsoleApp.Migrations
 
                     b.Property<int>("ColorId");
 
-                    b.Property<int>("CorlorId");
-
                     b.Property<int>("ProductId");
 
                     b.Property<int>("Quantity");
@@ -169,7 +167,7 @@ namespace SalesManagement.ConsoleApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CorlorId");
+                    b.HasIndex("ColorId");
 
                     b.HasIndex("ProductId");
 
@@ -180,15 +178,14 @@ namespace SalesManagement.ConsoleApp.Migrations
 
             modelBuilder.Entity("SalesManagement.ConsoleApp.Domain.Data.Entities.ProductTag", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 64)))
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ProductId");
 
                     b.Property<string>("TagId")
+                        .IsRequired()
                         .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
@@ -272,7 +269,7 @@ namespace SalesManagement.ConsoleApp.Migrations
                 {
                     b.HasOne("SalesManagement.ConsoleApp.Domain.Data.Entities.Color", "Color")
                         .WithMany()
-                        .HasForeignKey("CorlorId")
+                        .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SalesManagement.ConsoleApp.Domain.Data.Entities.Product", "Product")
@@ -295,7 +292,8 @@ namespace SalesManagement.ConsoleApp.Migrations
 
                     b.HasOne("SalesManagement.ConsoleApp.Domain.Data.Entities.Tag", "Tag")
                         .WithMany()
-                        .HasForeignKey("TagId");
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SalesManagement.ConsoleApp.Domain.Data.Entities.WholePrice", b =>
