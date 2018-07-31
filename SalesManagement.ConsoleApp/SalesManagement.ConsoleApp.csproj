@@ -7,7 +7,6 @@
     <Folder Include="Application\Implementation" />
     <Folder Include="Application\Interfaces" />
     <Folder Include="Infrastructure\Infrastructure\Enums" />
-    <Folder Include="Infrastructure\Infrastructure\Interfaces" />
     <Folder Include="Infrastructure\Utilities\Constants" />
     <Folder Include="Infrastructure\Utilities\Dtos" />
     <Folder Include="Infrastructure\Utilities\Extensions" />
