@@ -9,7 +9,7 @@ namespace SalesManagement.ConsoleApp.Infrastructure.Infrastructure.Interfaces
     {
         void Add(T entity);
 
-        void Update(T entity);
+        T Update(T entity);
 
         void Remove(T entity);
 

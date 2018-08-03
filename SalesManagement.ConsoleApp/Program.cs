@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.Extensions.WebEncoders.Testing;
+using SalesManagement.ConsoleApp.Application.AutoMapper;
+using SalesManagement.ConsoleApp.Application.Implementation;
+using SalesManagement.ConsoleApp.Application.Interfaces;
+using SalesManagement.ConsoleApp.Application.ViewModel;
 using SalesManagement.ConsoleApp.Domain.Data.EF;
 using SalesManagement.ConsoleApp.Domain.Data.Entities;
 using SalesManagement.ConsoleApp.Domain.Data.Enum;
+using SalesManagement.ConsoleApp.Infrastructure.Infrastructure.Interfaces;
 
 namespace SalesManagement.ConsoleApp
 {
@@ -14,8 +21,8 @@ namespace SalesManagement.ConsoleApp
         {
             using (var context = new AppDbContext())
             {
-                DbInitializer dbInitializer = new DbInitializer(context);
-                dbInitializer.Seed().Wait();
+//                DbInitializer dbInitializer = new DbInitializer(context);
+//                dbInitializer.Seed().Wait();
                 //var query = from p in context.Products
                 //    join pc in context.ProductCategories on p.CategoryId equals pc.Id
                 //    join pq in context.ProductQuantities on p.Id equals pq.ProductId
@@ -39,34 +46,45 @@ namespace SalesManagement.ConsoleApp
                 //                      tableResult.ProductSize + " " + tableResult.ProductColor + " " +
                 //                      tableResult.ProductTag);
                 //}
-            }
-
-            List<Product> listProducts = new List<Product>();
-            for (int i = 1; i <= 4; i++)
-            {
-                for (int j = 1; j <= 10; j++)
+                Mapper.Initialize(cfg => cfg.AddProfile<DomainToViewModelMappingProfile>());
+                //Mapper.Initialize(cfg=>cfg.AddProfile<ViewModelToDomainMappingProfile>());
+                IRepository<Product, int> productRepository = new EFRepository<Product, int>(context);
+                IProductService productService = new ProductService(productRepository);
+                //var productViewModel = productService.GetAll();
+                var productViewModel = productService.GetAllPaging(1, "1", 1, 10);
+                foreach (var item in productViewModel.Results)
                 {
-                    var product = new Product()
-                    {
-                        CategoryId = i,
-                        Content = "This is product " + (((i-1)*10)+j),
-                        DateCreated = DateTime.Now,
-                        Description = "This is product " + (((i-1)*10)+j),
-                        OriginalPrice = 500,
-                        PromotionPrice = 900,
-                        Price = 1000,
-                        Name = "Product " + (((i-1)*10)+j),
-                        Status = Status.Active,
-                        Unit = "set"
-                    };
-                    listProducts.Add(product);
+                    Console.WriteLine(item.Name);
                 }
             }
 
-            foreach (var list in listProducts)
-            {
-                Console.WriteLine(list.Name);
-            }
+
+//            List<Product> listProducts = new List<Product>();
+//            for (int i = 1; i <= 4; i++)
+//            {
+//                for (int j = 1; j <= 10; j++)
+//                {
+//                    var product = new Product()
+//                    {
+//                        CategoryId = i,
+//                        Content = "This is product " + (((i-1)*10)+j),
+//                        DateCreated = DateTime.Now,
+//                        Description = "This is product " + (((i-1)*10)+j),
+//                        OriginalPrice = 500,
+//                        PromotionPrice = 900,
+//                        Price = 1000,
+//                        Name = "Product " + (((i-1)*10)+j),
+//                        Status = Status.Active,
+//                        Unit = "set"
+//                    };
+//                    listProducts.Add(product);
+//                }
+//            }
+//
+//            foreach (var list in listProducts)
+//            {
+//                Console.WriteLine(list.Name);
+//            }
         }
     }
 }
