@@ -63,7 +63,7 @@ namespace SalesManagement.ConsoleApp.Domain.Data.EF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                "Server=.;Database=SalesManagement;Trusted_Connection=True;MultipleActiveResultSets=true");
+                @"Server=DESKTOP-KNS39N1\SQLEXPRESS;Database=SalesManagement;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 //        public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 //        {

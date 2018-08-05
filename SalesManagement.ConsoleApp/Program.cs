@@ -47,15 +47,24 @@ namespace SalesManagement.ConsoleApp
                 //                      tableResult.ProductTag);
                 //}
                 Mapper.Initialize(cfg => cfg.AddProfile<DomainToViewModelMappingProfile>());
-                //Mapper.Initialize(cfg=>cfg.AddProfile<ViewModelToDomainMappingProfile>());
                 IRepository<Product, int> productRepository = new EFRepository<Product, int>(context);
                 IProductService productService = new ProductService(productRepository);
                 //var productViewModel = productService.GetAll();
-                var productViewModel = productService.GetAllPaging(1, "1", 1, 10);
-                foreach (var item in productViewModel.Results)
+                var productViewModel = productService.GetAllPaging(1, "Product", 1, 5);
+                foreach (var item in productViewModel.Results.OrderBy(x=>x.Name))
                 {
                     Console.WriteLine(item.Name);
                 }
+                
+//                foreach (var item in context.ProductCategories)
+//                {
+//                    Console.WriteLine(item.Name);
+//                    foreach (var itemProduct in context.Products.Where(x=>x.CategoryId==item.Id).OrderBy(y=>y.Name))
+//                    {
+//                        Console.WriteLine(itemProduct.Name);
+//                    }
+//                    Console.WriteLine("==================================");
+//                }
             }
 
 

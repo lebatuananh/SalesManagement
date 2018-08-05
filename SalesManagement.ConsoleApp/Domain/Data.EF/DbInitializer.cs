@@ -184,6 +184,19 @@ namespace SalesManagement.ConsoleApp.Domain.Data.EF
                 _appDbContext.ProductTags.AddRange(listProductTags);
             }
 
+            if (!this._appDbContext.WholePrices.Any())
+            {
+                List<WholePrice> listWholePrices = new List<WholePrice>();
+                for (int i = 1; i <= 40; i++)
+                {
+                    var wholePrice1 = new WholePrice() {FromQuantity = 1,ToQuantity = 100,Price = 20,ProductId = i};
+                    var wholePrice2 = new WholePrice() {FromQuantity = 100,ToQuantity = 1000,Price = 15,ProductId = i};
+                    listWholePrices.Add(wholePrice1);
+                    listWholePrices.Add(wholePrice2);
+                }
+                this._appDbContext.WholePrices.AddRange(listWholePrices);
+            }
+
             await this._appDbContext.SaveChangesAsync();
         }
     }
