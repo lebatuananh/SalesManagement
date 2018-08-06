@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.WebEncoders.Testing;
@@ -12,6 +13,7 @@ using SalesManagement.ConsoleApp.Domain.Data.EF;
 using SalesManagement.ConsoleApp.Domain.Data.Entities;
 using SalesManagement.ConsoleApp.Domain.Data.Enum;
 using SalesManagement.ConsoleApp.Infrastructure.Infrastructure.Interfaces;
+using SalesManagement.ConsoleApp.Infrastructure.Utilities.Helpers;
 
 namespace SalesManagement.ConsoleApp
 {
@@ -19,6 +21,7 @@ namespace SalesManagement.ConsoleApp
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding=Encoding.UTF8;
             using (var context = new AppDbContext())
             {
 //                DbInitializer dbInitializer = new DbInitializer(context);
@@ -46,15 +49,21 @@ namespace SalesManagement.ConsoleApp
                 //                      tableResult.ProductSize + " " + tableResult.ProductColor + " " +
                 //                      tableResult.ProductTag);
                 //}
-                Mapper.Initialize(cfg => cfg.AddProfile<DomainToViewModelMappingProfile>());
-                IRepository<Product, int> productRepository = new EFRepository<Product, int>(context);
-                IProductService productService = new ProductService(productRepository);
-                //var productViewModel = productService.GetAll();
-                var productViewModel = productService.GetAllPaging(1, "Product", 1, 5);
-                foreach (var item in productViewModel.Results.OrderBy(x=>x.Name))
+                Mapper.Initialize(cfg =>
                 {
-                    Console.WriteLine(item.Name);
-                }
+                    cfg.AddProfile<DomainToViewModelMappingProfile>();
+                    cfg.AddProfile<ViewModelToDomainMappingProfile>();
+                });
+                IRepository<Product, int> productRepository = new EFRepository<Product, int>(context);
+                IRepository<Tag,string>tagRepository=new EFRepository<Tag, string>(context);
+                IUnitOfWork unitOfWork=new EFUnitOfWork(context);
+                IProductService productService = new ProductService(productRepository,tagRepository,unitOfWork);
+//                //var productViewModel = productService.GetAll();
+//                var productViewModel = productService.GetAllPaging(1, "Product", 1, 5);
+//                foreach (var item in productViewModel.Results.OrderBy(x=>x.Name))
+//                {
+//                    Console.WriteLine(item.Name);
+//                }
                 
 //                foreach (var item in context.ProductCategories)
 //                {
@@ -65,6 +74,23 @@ namespace SalesManagement.ConsoleApp
 //                    }
 //                    Console.WriteLine("==================================");
 //                }
+                var newProductViewModel =productService.Add(new ProductViewModel()
+                {
+                    CategoryId = 4,
+                    Content = "This is product 42",
+                    DateCreated = DateTime.Now,
+                    Description = "This is product 42",
+                    OriginalPrice = 800,
+                    Name = "product 42",
+                    Status = Status.Active,
+                    PromotionPrice = 850,
+                    Unit = "set",
+                    Tags = "product42a,product42b,product41c",
+                    Price = 1000,
+                });
+                Console.WriteLine(newProductViewModel.Name);
+                productService.Save();
+
             }
 
 
@@ -94,6 +120,13 @@ namespace SalesManagement.ConsoleApp
 //            {
 //                Console.WriteLine(list.Name);
 //            }
+//            Console.WriteLine(TextHelpers.ToUnString("?"));
+//            Console.WriteLine(TextHelpers.ToString(-1000000000));
+//            string s = "product 1";
+//            Console.WriteLine(s.Trim());
+//            Dictionary<string,string>dictionary=new Dictionary<string, string>();
+//            dictionary.Add("a","d");
+//            Console.WriteLine(TextHelpers.Parse("aac",dictionary));
         }
     }
 }

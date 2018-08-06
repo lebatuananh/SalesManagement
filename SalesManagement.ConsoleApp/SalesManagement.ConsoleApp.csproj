@@ -7,7 +7,6 @@
     <Folder Include="Infrastructure\Infrastructure\Enums" />
     <Folder Include="Infrastructure\Utilities\Constants" />
     <Folder Include="Infrastructure\Utilities\Extensions" />
-    <Folder Include="Infrastructure\Utilities\Helpers" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.0" />

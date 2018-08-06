@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using SalesManagement.ConsoleApp.Application.Interfaces;
 using SalesManagement.ConsoleApp.Application.ViewModel;
@@ -8,16 +9,21 @@ using SalesManagement.ConsoleApp.Domain.Data.Entities;
 using SalesManagement.ConsoleApp.Domain.Data.Enum;
 using SalesManagement.ConsoleApp.Infrastructure.Infrastructure.Interfaces;
 using SalesManagement.ConsoleApp.Infrastructure.Utilities.Dtos;
+using SalesManagement.ConsoleApp.Infrastructure.Utilities.Helpers;
 
 namespace SalesManagement.ConsoleApp.Application.Implementation
 {
     public class ProductService : IProductService
     {
-        private IRepository<Product, int> _productRepository;
+        private readonly IRepository<Product, int> _productRepository;
+        private readonly IRepository<Tag, string> _tagRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IRepository<Product, int> productRepository)
+        public ProductService(IRepository<Product, int> productRepository, IRepository<Tag, string> tagRepository, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
+            _tagRepository = tagRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public void Dispose()
@@ -32,20 +38,53 @@ namespace SalesManagement.ConsoleApp.Application.Implementation
 
         public ProductViewModel Add(ProductViewModel productViewModel)
         {
-            throw new System.NotImplementedException();
+            var listProductTags = new List<ProductTag>();
+            if (!string.IsNullOrEmpty(productViewModel.Tags))
+            {
+                string[] tags = productViewModel.Tags.Split(",");
+                foreach (var t in tags)
+                {
+                    var tagId = TextHelpers.ToUnString(t);
+                    if (!_tagRepository.FindAll(x => x.Id == tagId).Any())
+                    {
+                        Tag tag = new Tag()
+                        {
+                            Id = tagId,
+                            Name = t
+                        };
+                        _tagRepository.Add(tag);
+                    }
+
+                    ProductTag productTag = new ProductTag()
+                    {
+                        TagId = tagId
+                    };
+                    listProductTags.Add(productTag);
+                }
+
+                var product = Mapper.Map<ProductViewModel, Product>(productViewModel);
+                foreach (var productTag in listProductTags)
+                {
+                    product.ProductTags.Add(productTag);
+                }
+
+                _productRepository.Add(product);
+            }
+
+            return productViewModel;
         }
 
         public PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize)
         {
             var query = _productRepository.FindAll(x => x.Status == Status.Active);
             if (!String.IsNullOrEmpty(keyword))
-                query = query.Where(x => x.Name.Contains(keyword) ||x.Description.Contains(keyword) );
+                query = query.Where(x => x.Name.Contains(keyword) || x.Description.Contains(keyword));
             if (categoryId.HasValue)
                 query = query.Where(x => x.CategoryId == categoryId.Value);
             int totalRow = query.Count();
             query = query.OrderBy(x => x.Name).Skip((page - 1) * pageSize).Take(pageSize);
             var data = query.ProjectTo<ProductViewModel>().ToList();
-            var paginationSet=new PagedResult<ProductViewModel>()
+            var paginationSet = new PagedResult<ProductViewModel>()
             {
                 Results = data,
                 CurrentPage = page,
@@ -72,7 +111,7 @@ namespace SalesManagement.ConsoleApp.Application.Implementation
 
         public void Save()
         {
-            throw new System.NotImplementedException();
+            _unitOfWork.Commit();
         }
 
         public void ImportExcel(string filePath, int categoryId)
