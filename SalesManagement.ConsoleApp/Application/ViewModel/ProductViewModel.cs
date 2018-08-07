@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using SalesManagement.ConsoleApp.Domain.Data.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using SalesManagement.ConsoleApp.Domain.Data.Enum;
 
 namespace SalesManagement.ConsoleApp.Application.ViewModel
 {
@@ -11,11 +10,11 @@ namespace SalesManagement.ConsoleApp.Application.ViewModel
     {
         public int Id { get; set; }
 
-        [Required][StringLength(255)] public string Name { get; set; }
+        [Required] [StringLength(255)] public string Name { get; set; }
 
-        [Required]public int CategoryId { get; set; }
+        [Required] public int CategoryId { get; set; }
 
-        [Required][DefaultValue(0)] public decimal Price { get; set; }
+        [Required] [DefaultValue(0)] public decimal Price { get; set; }
 
         public decimal? PromotionPrice { get; set; }
 
@@ -44,7 +43,7 @@ namespace SalesManagement.ConsoleApp.Application.ViewModel
         [StringLength(255)] public string SeoDescription { get; set; }
 
         public ProductCategoryViewModel ProductCategoryViewModel { set; get; }
-        
+
         public ICollection<ProductTagViewModel> ProductTags { get; set; }
     }
 }

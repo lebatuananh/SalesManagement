@@ -1,8 +1,7 @@
-﻿namespace SalesManagement.ConsoleApp.Application.ViewModel
+﻿    namespace SalesManagement.ConsoleApp.Application.ViewModel
 {
     public class ProductQuantityViewModel
     {
-        public int Id { get; set; }
         
         public int ProductId { get; set; }
 

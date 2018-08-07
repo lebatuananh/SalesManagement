@@ -25,9 +25,9 @@ namespace SalesManagement.ConsoleApp.Application.Interfaces
         
         void AddQuantity(int productId, List<ProductQuantityViewModel>quantityViewModels);
         
-        List<ProductViewModel> GetQuantities(int productId);
+        List<ProductQuantityViewModel> GetQuantities(int productId);
         
-        void AddImages(int productId, string[] images);
+        void AddImages(int productId, string[] images,string caption);
         
         List<ProductImageViewModel> GetImages(int productId);
         
